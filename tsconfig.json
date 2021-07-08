@@ -21,7 +21,8 @@
       "@libs/*": ["libs/*"],
       "@interfaces": ["interfaces"],
       "@theme": ["libs/theme/theme.ts"],
-      "@utils": ["libs/utils"]
+      "@utils": ["libs/utils"],
+      "@store": ["libs/store"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
