@@ -7,8 +7,9 @@ import {
   CardMovie,
   Container,
 } from "@comps";
-import { Grid, GridItem, Flex, Spinner, Text } from "@chakra-ui/react";
+import { Grid, Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import { useSearchResults } from "./result.state";
+import Link from "next/link";
 
 const SerachResults: FC = () => {
   const { keyword, status, data, handleOnSearch } = useSearchResults();
@@ -43,13 +44,16 @@ const SerachResults: FC = () => {
             {data.pages.map((page, idx) => (
               <Fragment key={idx}>
                 {page.Search.map(({ Title, Year, Type, imdbID, Poster }) => (
-                  <CardMovie
-                    key={imdbID}
-                    title={Title}
-                    year={Year}
-                    type={Type}
-                    cover={Poster}
-                  />
+                  <Link key={imdbID} href={`/details/${imdbID}`} passHref>
+                    <Box as="a">
+                      <CardMovie
+                        title={Title}
+                        year={Year}
+                        type={Type}
+                        cover={Poster}
+                      />
+                    </Box>
+                  </Link>
                 ))}
               </Fragment>
             ))}

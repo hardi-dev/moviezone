@@ -6,34 +6,32 @@ import { useDebounce } from "@src/libs/customHooks";
 export const useHomeState = () => {
   const dispatch = useAppDispatch();
   const { keyword } = useAppSelector((state) => state.search);
-  const douncedKeyword = useDebounce(keyword);
+  const douncedKeyword = useDebounce(keyword, 200);
   const [typing, setIstyping] = useState(false);
 
   const { data, status, hasNextPage, fetchNextPage } = useMovies({
     s: douncedKeyword,
   });
 
+  const handleOnChange = (val: string) => {
+    dispatch({ type: "SET_KEYWORD", payload: val });
+  };
+
   useEffect(() => {
-    setIstyping(
-      douncedKeyword !== null &&
-        typeof douncedKeyword !== "undefined" &&
-        douncedKeyword.length > 3
-    );
+    setIstyping(douncedKeyword.length >= 5);
   }, [douncedKeyword]);
 
-  const handleOnSearch = (keyword?: string) => {
-    if (typeof keyword !== "undefined") {
-      dispatch({ type: "SET_KEYWORD", payload: keyword });
-    }
-  };
+  useEffect(() => {
+    dispatch({ type: "RESET_KEYWORD" });
+  }, [dispatch]);
 
   return {
     data,
     status,
     fetchNextPage,
     hasNextPage,
-    handleOnSearch,
     typing,
-    keyword: douncedKeyword,
+    keyword,
+    handleOnChange,
   };
 };

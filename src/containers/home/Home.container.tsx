@@ -4,7 +4,7 @@ import { Flex, Container, Box } from "@chakra-ui/react";
 import { useHomeState } from "./Home.state";
 
 const Home: FC = () => {
-  const { data, typing, handleOnSearch, keyword } = useHomeState();
+  const { data, typing, keyword, handleOnChange } = useHomeState();
 
   return (
     <Layout navbar={<Navbar />}>
@@ -17,7 +17,7 @@ const Home: FC = () => {
               p="4"
               bgColor="white"
               borderRadius="8"
-              onChange={(val) => handleOnSearch(val as string)}
+              onChange={(val) => handleOnChange(val as string)}
               value={keyword}
             />
             {typing && (

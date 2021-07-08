@@ -39,7 +39,12 @@ const CardMovie: FC<ICardMovieProps> = ({
       {...restPorps}
     >
       <Box width="100%" height="100%">
-        <Image src={cover} alt={title} width="100%" />
+        <Image
+          src={cover}
+          alt={title}
+          width="100%"
+          fallbackSrc="/fallback.svg"
+        />
         <Flex
           position="absolute"
           left="0px"
