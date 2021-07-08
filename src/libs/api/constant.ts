@@ -1,1 +1,2 @@
-export const API_URL = "http://www.omdbapi.com?apiKey=1234cae2";
+export const API_URL = "http://www.omdbapi.com";
+export const API_KEY = "faf7e5bb";

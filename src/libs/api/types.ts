@@ -3,3 +3,8 @@ export interface IRequestHeaders {
   Authorization?: string;
   "Content-Type"?: string;
 }
+
+export interface ISearchParams {
+  s: string;
+  pageParam: number;
+}
