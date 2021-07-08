@@ -13,7 +13,7 @@ const Layout: FC<ILayoutProps> = ({ navbar, children }) => {
           {navbar}
         </Box>
       )}
-      <Box pt="20">{children}</Box>
+      <Box pt="72px">{children}</Box>
     </Box>
   );
 };

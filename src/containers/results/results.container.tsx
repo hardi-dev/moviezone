@@ -6,8 +6,10 @@ import {
   AutoComplete,
   CardMovie,
   Container,
+  Spinner,
+  Empty,
 } from "@comps";
-import { Grid, Box, Flex, Spinner, Text } from "@chakra-ui/react";
+import { Grid, Box, Flex, Text } from "@chakra-ui/react";
 import { useSearchResults } from "./result.state";
 import Link from "next/link";
 
@@ -25,11 +27,11 @@ const SerachResults: FC = () => {
       }
     >
       <Container mt="10">
-        {status === "success" && data?.pages[0].Response === "False" && (
-          <Flex justifyContent="center" align="center" height="100vh">
-            <Text>Tidak ada hasil</Text>
-          </Flex>
-        )}
+        <Spinner loading={status === "loading"} />
+
+        <Empty
+          isEmpty={status === "success" && data?.pages[0].Response === "False"}
+        />
 
         {status === "success" && data?.pages[0].Response === "True" && (
           <Grid
@@ -58,12 +60,6 @@ const SerachResults: FC = () => {
               </Fragment>
             ))}
           </Grid>
-        )}
-
-        {status === "loading" && (
-          <Flex justifyContent="center" align="center" height="100vh">
-            <Spinner />
-          </Flex>
         )}
       </Container>
     </Layout>

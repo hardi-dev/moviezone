@@ -8,3 +8,6 @@ export interface ISearchParams {
   s?: string | null;
   pageParam?: number;
 }
+export interface IMovieParams {
+  i?: string | null;
+}
