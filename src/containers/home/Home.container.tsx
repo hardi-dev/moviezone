@@ -1,47 +1,34 @@
-import { Navbar, Layout, Search } from "@comps";
-import { useEffect, FC } from "react";
-import { useMovies } from "@libs/api/hooks";
-import { Flex, Box, Container } from "@chakra-ui/react";
-import { useAppDispatch, useAppSelector } from "@store";
+import { FC } from "react";
+import { Navbar, Layout, Search, AutoComplete } from "@comps";
+import { Flex, Container, Box } from "@chakra-ui/react";
+import { useHomeState } from "./Home.state";
 
 const Home: FC = () => {
-  const dispatch = useAppDispatch();
-  const { keyword } = useAppSelector((state) => state.search);
-
-  const { data, isSuccess, hasNextPage } = useMovies({
-    s: "Batman",
-    pageParam: 1,
-  });
-
-  useEffect(() => {
-    console.log("keywor", keyword);
-  }, [keyword]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      console.log("data", data);
-      console.log("hasNextPage", hasNextPage);
-    }
-  }, [isSuccess, data, hasNextPage]);
-
-  const handleOnSearch = (keyword?: string) => {
-    if (typeof keyword !== "undefined") {
-      dispatch({ type: "SET_KEYWORD", payload: keyword });
-    }
-  };
+  const { data, typing, handleOnSearch, keyword } = useHomeState();
 
   return (
     <Layout navbar={<Navbar />}>
       <Container minW="container.lg">
         <Flex minH="100vh" justifyContent="center" alignItems="center">
-          <Search
-            width={{ sm: "80%", lg: "50%" }}
-            boxShadow="md"
-            p="4"
-            bgColor="white"
-            borderRadius="8"
-            onClick={(val) => handleOnSearch(val as string)}
-          />
+          <Box position="relative" width={{ sm: "80%", lg: "50%" }}>
+            <Search
+              width="100%"
+              boxShadow="md"
+              p="4"
+              bgColor="white"
+              borderRadius="8"
+              onChange={(val) => handleOnSearch(val as string)}
+              value={keyword}
+            />
+            {typing && (
+              <AutoComplete
+                data={data?.pages[0].Search || []}
+                total={parseInt(data?.pages[0].totalResults || "0")}
+                width="100%"
+                pos="absolute"
+              />
+            )}
+          </Box>
         </Flex>
       </Container>
     </Layout>

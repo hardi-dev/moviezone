@@ -1,4 +1,4 @@
-import { FC, ComponentProps, useRef } from "react";
+import { FC, useRef } from "react";
 import {
   Box,
   Input,
@@ -10,20 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
 
-type TSearchVal = string | number;
-
 type TSearchVariant = "default" | "boxed";
 
-interface ISearchProps
-  extends Pick<
-    BoxProps,
-    "width" | "boxShadow" | "bgColor" | "p" | "borderRadius"
-  > {
-  value?: TSearchVal;
+interface ISearchProps extends Omit<BoxProps, "onChange" | "onClick"> {
+  value?: string;
   variant?: TSearchVariant;
   placeholder?: string;
-  onChange?: (val: TSearchVal) => void;
-  onClick?: (val?: TSearchVal) => void;
+  onChange?: (val: string) => void;
+  onClick?: (val?: string) => void;
 }
 
 const Search: FC<ISearchProps> = ({
@@ -35,33 +29,25 @@ const Search: FC<ISearchProps> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleOnChange = (val: TSearchVal) => {
+  const handleOnChange = (val: string) => {
     onChange && onChange(val);
   };
 
-  const handleOnClick = (val?: TSearchVal) => {
+  const handleOnClick = (val?: string) => {
     onClick && onClick(val);
   };
 
   return (
     <Box {...restProps}>
-      {/* <Flex
-        alignItems="center"
-        bgColor="gray.100"
-        borderRadius="8"
-        pl="4"
-        pr="1"
-        py="1"
-      > */}
       <InputGroup>
         <Input
           ref={inputRef}
-          value={value}
           onChange={(e) => handleOnChange(e.target.value)}
           placeholder={placeholder}
           border="none"
           bgColor="gray.100"
           pr="2.6rem"
+          value={value}
         />
         <InputRightElement width="2.6rem">
           <IconButton
@@ -74,7 +60,6 @@ const Search: FC<ISearchProps> = ({
           </IconButton>
         </InputRightElement>
       </InputGroup>
-      {/* </Flex> */}
     </Box>
   );
 };

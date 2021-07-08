@@ -1,4 +1,4 @@
-import { Home } from "@containers";
+import { MovieDetail } from "@containers";
 import { GetServerSideProps } from "next";
 import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
@@ -6,7 +6,7 @@ import { fetchMovies } from "@libs/api/hooks";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery("movies", fetchMovies);
+  await queryClient.prefetchQuery("movies", () => fetchMovies({}));
 
   return {
     props: {
@@ -15,4 +15,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default Home;
+export default MovieDetail;

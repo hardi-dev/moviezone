@@ -1,21 +1,31 @@
 import { FC } from "react";
-import { Box, Image, Container, Grid, GridItem } from "@chakra-ui/react";
-import { Search } from "@comps";
+import { Box, Image, Grid, GridItem } from "@chakra-ui/react";
+import { Search, Container } from "@comps";
 import Link from "next/link";
 
 interface INavbarProps {
   withSearch?: boolean;
+  keyword?: string;
+  onSearch?: (keyword: string) => void;
 }
 
-const Navbar: FC<INavbarProps> = ({ withSearch = false }) => {
+const Navbar: FC<INavbarProps> = ({
+  withSearch = false,
+  keyword,
+  onSearch,
+}) => {
+  const handleOnSearch = (val: string) => {
+    onSearch && onSearch(val as string);
+  };
+
   return (
-    <Box
-      width="100%"
-      bgColor="white"
-      boxShadow="0px 4px 40px rgba(0, 0, 0, 0.03)"
-    >
-      <Container minWidth="container.xl">
-        <Grid templateColumns="1fr 3fr 1fr" alignItems="center" height="72px">
+    <Box width="100%" bgColor="white" boxShadow="md">
+      <Container>
+        <Grid
+          templateColumns={{ base: "1fr 2fr 1fr", lg: "1fr 3fr 1fr" }}
+          alignItems="center"
+          height="72px"
+        >
           <GridItem>
             <Link href="/" passHref>
               <Box as="a">
@@ -26,9 +36,9 @@ const Navbar: FC<INavbarProps> = ({ withSearch = false }) => {
           <GridItem>
             {withSearch && (
               <Search
-                width="60%"
-                onChange={(val) => console.log("val", val)}
-                onClick={(val) => console.log("vaa", val)}
+                width={{ base: "90%", lg: "60%" }}
+                m={{ sm: "0 auto", lg: "0px" }}
+                onClick={(val) => handleOnSearch(val as string)}
               />
             )}
           </GridItem>

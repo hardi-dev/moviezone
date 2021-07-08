@@ -5,6 +5,6 @@ export interface IRequestHeaders {
 }
 
 export interface ISearchParams {
-  s: string;
-  pageParam: number;
+  s?: string | null;
+  pageParam?: number;
 }

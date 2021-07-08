@@ -6,11 +6,11 @@ export type TAction =
   | { type: "RESET_KEYWORD" };
 
 interface SearchState {
-  keyword: string | null;
+  keyword: string;
 }
 
 const initialState: SearchState = {
-  keyword: null,
+  keyword: "",
 };
 
 const searchReducer = (state: SearchState = initialState, action: TAction) => {

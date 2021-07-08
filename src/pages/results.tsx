@@ -1,4 +1,4 @@
-import { Home } from "@containers";
+import { Results } from "@containers";
 import { GetServerSideProps } from "next";
 import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
@@ -15,4 +15,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default Home;
+export default Results;

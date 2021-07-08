@@ -9,11 +9,11 @@ const Layout: FC<ILayoutProps> = ({ navbar, children }) => {
   return (
     <Box bg="white" width="100%" minH="100vh">
       {navbar && (
-        <Box pos="absolute" top="0px" left="0px" right="0px">
+        <Box pos="absolute" top="0px" left="0px" right="0px" zIndex="sticky">
           {navbar}
         </Box>
       )}
-      <Box>{children}</Box>
+      <Box pt="20">{children}</Box>
     </Box>
   );
 };

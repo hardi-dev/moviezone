@@ -12,17 +12,23 @@ const fetchMovies = async ({ pageParam = 1, s }: ISearchParams) => {
   return data;
 };
 
-const useMovies = (params: ISearchParams) => {
+const useMovies = ({ pageParam = 1, ...restParam }: ISearchParams) => {
   return useInfiniteQuery<ISearchResult, AxiosError<Error>>(
-    ["movies", params],
-    ({ pageParam = 1 }) => fetchMovies({ ...params, pageParam }),
+    ["movies", { pageParam, ...restParam }],
+    ({ pageParam = 1 }) => fetchMovies({ ...restParam, pageParam }),
     {
-      enabled: params.s.length > 3,
-      getNextPageParam: (lastPage, allPages) =>
-        allPages.map((items) => [...items.Search]).flat().length <
-        parseInt(lastPage.totalResults)
-          ? params.pageParam + 1
-          : undefined,
+      enabled:
+        typeof restParam.s !== "undefined" &&
+        restParam.s !== null &&
+        restParam.s.length > 0,
+      getNextPageParam: (lastPage, allPages) => {
+        if (lastPage.Response === "False") return;
+
+        return allPages.map((items) => [...items.Search]).flat().length <
+          parseInt(lastPage.totalResults)
+          ? pageParam + 1
+          : undefined;
+      },
     }
   );
 };
