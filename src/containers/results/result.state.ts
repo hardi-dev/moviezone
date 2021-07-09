@@ -12,12 +12,9 @@ export const useSearchResults = () => {
       s: keyword,
     });
 
-  console.log("leu", keyword);
-
   useInfiniteScroll(!isFetchingNextPage && hasNextPage, fetchNextPage);
 
   const handleOnSearch = (keyword?: string) => {
-    console.log("keyw", keyword);
     if (typeof keyword !== "undefined") {
       dispatch({ type: "SET_KEYWORD", payload: keyword });
     }
