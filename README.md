@@ -2,16 +2,16 @@
 
 ### Stack
 
-- Typescript for Type Safe
+- TypeScript for Type Safe
 - React JS (Next JS) as a Framework
 - Chakra UI as Component Library
 - React Query for Server State Management
 - Redux for App State Management
 
-### Reqirement
+### Requirements
 
 - Node JS v12.18.0
-- Type Script Compiler 3.9.5
+- TypeScript Compiler 3.9.5
 
 ### Install and Run
 
