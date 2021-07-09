@@ -25,7 +25,7 @@ const CardMovie: FC<ICardMovieProps> = ({
   type,
   year,
   cover,
-  ratio = 3 / 4,
+  ratio = 3 / 4.5,
   maxW = 300,
   ...restPorps
 }) => {

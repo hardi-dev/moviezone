@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Box, Flex, Text, Badge, BoxProps } from "@chakra-ui/react";
 import { ISearch } from "@interfaces";
+import { TypeBadge } from "@comps";
 import Link from "next/link";
 
 interface IAutoCompleteProps extends BoxProps {
@@ -29,7 +30,7 @@ const AutoComplete: FC<IAutoCompleteProps> = ({
                       backgroundColor: "gray.200",
                     }}
                   >
-                    <Badge mr="4">{Type}</Badge>
+                    <TypeBadge mr="4" type={Type} />
                     <Text>{Title}</Text>
                   </Flex>
                 </Box>
@@ -46,7 +47,7 @@ const AutoComplete: FC<IAutoCompleteProps> = ({
                 display="block"
                 mt="4"
               >
-                Lihat lebih banyak ({total})
+                Lihat semua dari {total} hasil
               </Text>
             </Link>
           )}
