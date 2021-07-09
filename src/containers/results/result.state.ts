@@ -7,14 +7,22 @@ export const useSearchResults = () => {
   const dispatch = useAppDispatch();
   const { keyword } = useAppSelector((state) => state.search);
 
+  const douncedKeyword = useDebounce(keyword);
+
   const { data, status, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useMovies({
-      s: keyword,
+      s: douncedKeyword,
     });
 
   useInfiniteScroll(!isFetchingNextPage && hasNextPage, fetchNextPage);
 
   const handleOnSearch = (keyword?: string) => {
+    if (typeof keyword !== "undefined") {
+      dispatch({ type: "SET_KEYWORD", payload: keyword });
+    }
+  };
+
+  const handleOnChange = (keyword?: string) => {
     if (typeof keyword !== "undefined") {
       dispatch({ type: "SET_KEYWORD", payload: keyword });
     }
@@ -27,5 +35,6 @@ export const useSearchResults = () => {
     hasNextPage,
     handleOnSearch,
     keyword,
+    handleOnChange,
   };
 };

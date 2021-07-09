@@ -7,15 +7,20 @@ interface INavbarProps {
   withSearch?: boolean;
   keyword?: string;
   onSearch?: (keyword: string) => void;
+  onChange?: (keyword: string) => void;
 }
 
 const Navbar: FC<INavbarProps> = ({
   withSearch = false,
   keyword,
   onSearch,
+  onChange,
 }) => {
   const handleOnSearch = (val: string) => {
     onSearch && onSearch(val as string);
+  };
+  const handleOnchange = (val: string) => {
+    onChange && onChange(val as string);
   };
 
   return (
@@ -38,6 +43,8 @@ const Navbar: FC<INavbarProps> = ({
               <Search
                 width={{ base: "90%", lg: "60%" }}
                 m={{ sm: "0 auto", lg: "0px" }}
+                value={keyword}
+                onChange={(val) => handleOnchange(val as string)}
                 onClick={(val) => handleOnSearch(val as string)}
               />
             )}

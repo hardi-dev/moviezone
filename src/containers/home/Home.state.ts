@@ -6,7 +6,8 @@ import { useDebounce } from "@src/libs/customHooks";
 export const useHomeState = () => {
   const dispatch = useAppDispatch();
   const { keyword } = useAppSelector((state) => state.search);
-  const douncedKeyword = useDebounce(keyword, 200);
+  const douncedKeyword = useDebounce(keyword);
+
   const [typing, setIstyping] = useState(false);
 
   const { data, status, hasNextPage, fetchNextPage } = useMovies({
@@ -18,7 +19,7 @@ export const useHomeState = () => {
   };
 
   useEffect(() => {
-    setIstyping(douncedKeyword.length >= 5);
+    setIstyping(douncedKeyword.length >= 3);
   }, [douncedKeyword]);
 
   useEffect(() => {
