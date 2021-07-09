@@ -1,34 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Instruction
 
-## Getting Started
+### Stack
 
-First, run the development server:
+- Typescript for Type Safe
+- React JS (Next JS) as a Framework
+- Chakra UI as Component Library
+- React Query for Server State Management
+- Redux for App State Management
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### Reqirement
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Node JS v12.18.0
+- Type Script Compiler 3.9.5
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Install and Run
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.tsx`.
+Open terminal and navigate to Project directory then install the dependency with yarn
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+    yarn
 
-## Learn More
+wait until installation complete, then run the project with
 
-To learn more about Next.js, take a look at the following resources:
+    yarn dev
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Folder Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. public
+2. src
+   1. components => Reusable Component accrose the project
+   2. containers => Handle UI and Logic
+   3. interfaces => API types / interface
+   4. libs => API Request, Hooks
+   5. pages => Next JS page / routes
