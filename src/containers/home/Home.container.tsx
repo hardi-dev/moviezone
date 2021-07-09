@@ -9,7 +9,7 @@ const Home: FC = () => {
   return (
     <Layout navbar={<Navbar />}>
       <Container minW="container.lg">
-        <Flex minH="100vh" justifyContent="center" alignItems="center">
+        <Flex minH="80vh" justifyContent="center" alignItems="center">
           <Box position="relative" width={{ sm: "80%", lg: "50%" }}>
             <Search
               width="100%"

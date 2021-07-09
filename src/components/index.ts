@@ -7,3 +7,4 @@ export { default as TypeBadge } from "./typeBadge/typeBadge.component";
 export { default as CardMovie } from "./card/movie/movie.component";
 export { default as Spinner } from "./spinner/spinner.component";
 export { default as Empty } from "./empty/empty.component";
+export { default as Error } from "./error/error.component";

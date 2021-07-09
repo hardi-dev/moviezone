@@ -1,5 +1,13 @@
-import { FC } from "react";
-import { Navbar, Layout, Empty, Spinner, Container } from "@comps";
+import { FC, useRef } from "react";
+import {
+  Navbar,
+  Layout,
+  Empty,
+  Spinner,
+  Container,
+  Error,
+  TypeBadge,
+} from "@comps";
 import {
   Flex,
   Box,
@@ -10,27 +18,36 @@ import {
   Heading,
   Text,
   Badge,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import { useMovieDetail } from "./movieDetail.state";
 
 const MovieDetail: FC = () => {
   const { data, status } = useMovieDetail();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const finalRef = useRef<any>(null);
 
   return (
-    <Layout navbar={<Navbar />}>
+    <Layout bg="black" navbar={<Navbar />}>
       <Spinner loading={status === "loading"} />
       <Empty isEmpty={status === "success" && data?.Response === "False"} />
+      <Error isError={status === "error"} />
 
       {status === "success" &&
         typeof data !== "undefined" &&
         data.Response === "True" && (
           <>
-            <Box width="100%" pos="absolute">
-              <Box
-                width="100%"
-                height={{ sm: "50vh", md: "30vh", lg: "35vw" }}
-                overflow="hidden"
-              >
+            <Box
+              pos="absolute"
+              width="100%"
+              height="calc(100% - 73px)"
+              overflow="hidden"
+            >
+              <Box>
                 <Box
                   width="100%"
                   height="100%"
@@ -58,69 +75,140 @@ const MovieDetail: FC = () => {
                 </Box>
               </Box>
             </Box>
-            <Container mt="20" position="relative">
+
+            <Container
+              mt={{ base: "10", md: "20" }}
+              position="relative"
+              px={{ base: "10" }}
+            >
               <Grid
-                gap="20"
+                gap={{ base: "10", md: "20" }}
                 templateColumns={{
                   base: "1fr",
-                  md: "repeat(2, 1fr)",
-                  lg: "1fr 2fr",
+                  md: "1fr 2fr",
                 }}
               >
                 <GridItem>
                   <AspectRatio
-                    ratio={3 / 4}
+                    ratio={3 / 4.5}
                     overflow="hidden"
                     borderRadius="16"
+                    width={{ base: "50%", sm: "40%", md: "100%" }}
+                    margin="0px auto"
                   >
                     <Image
                       src={data.Poster}
                       alt={data.Title}
                       width="100%"
                       fallbackSrc="/fallback.svg"
+                      cursor="pointer"
+                      onClick={onOpen}
                     />
                   </AspectRatio>
                 </GridItem>
                 <GridItem>
-                  <Heading mt="10" as="h1" color="white" fontSize="4xl">
+                  <TypeBadge type={data.Type} mt={{ sm: "1", md: "5" }} />
+                  <Heading mt="5" as="h1" color="white" fontSize="4xl">
                     {data.Title}
                   </Heading>
-                  <Grid
-                    mt="10"
-                    gap="5"
-                    templateColumns={{
-                      base: "1fr",
-                      lg: "repeat(2, 1fr)",
-                    }}
-                  >
-                    <GridItem>
-                      <Heading as="h4" fontSize="2xl" color="white" mb="2">
-                        Plot
-                      </Heading>
-                      <Text color="white">{data.Plot}</Text>
+                  <Text color="whiteAlpha.600" mt="2">
+                    {data.Year} | {data.Runtime} | {data.Rated}
+                  </Text>
 
-                      <Heading
-                        as="h4"
-                        fontSize="2xl"
-                        color="white"
-                        mb="2"
-                        mt="4"
-                      >
-                        Genre
-                      </Heading>
-                      <Flex>
+                  <Text color="white" mt="10" width={{ sm: "100%", md: "70%" }}>
+                    {data.Plot}
+                  </Text>
+
+                  <VStack mt="10" spacing="4" alignItems="flex-start">
+                    <Grid
+                      templateColumns={{
+                        sm: "1fr",
+                        md: "2fr 4fr",
+                        lg: "1fr 5fr",
+                      }}
+                      alignItems="center"
+                      width="100%"
+                    >
+                      <Text color="whiteAlpha.600">Director</Text>
+                      <Text color="white">{data.Director}</Text>
+                    </Grid>
+                    <Grid
+                      templateColumns={{
+                        sm: "1fr",
+                        md: "2fr 4fr",
+                        lg: "1fr 5fr",
+                      }}
+                      alignItems="center"
+                      width="100%"
+                    >
+                      <Text color="whiteAlpha.600">Writer</Text>
+                      <Text color="white">{data.Writer}</Text>
+                    </Grid>
+                    <Grid
+                      templateColumns={{
+                        sm: "1fr",
+                        md: "2fr 4fr",
+                        lg: "1fr 5fr",
+                      }}
+                      alignItems="center"
+                      width="100%"
+                    >
+                      <Text color="whiteAlpha.600">Actors</Text>
+                      <Text color="white">{data.Actors}</Text>
+                    </Grid>
+                    <Grid
+                      templateColumns={{
+                        sm: "1fr",
+                        md: "2fr 4fr",
+                        lg: "1fr 5fr",
+                      }}
+                      alignItems="center"
+                      width="100%"
+                    >
+                      <Text color="whiteAlpha.600">Production</Text>
+                      <Text color="white">{data.Production}</Text>
+                    </Grid>
+                    <Grid
+                      templateColumns={{
+                        sm: "1fr",
+                        md: "2fr 4fr",
+                        lg: "1fr 5fr",
+                      }}
+                      alignItems="center"
+                      width="100%"
+                    >
+                      <Text color="whiteAlpha.600">Genre</Text>
+                      <Flex alignItems="center">
                         {data.Genre.split(",").map((item) => (
                           <Badge key={item} colorScheme="yellow" mr="2">
                             {item}
                           </Badge>
                         ))}
                       </Flex>
-                    </GridItem>
-                    <GridItem></GridItem>
-                  </Grid>
+                    </Grid>
+                  </VStack>
                 </GridItem>
               </Grid>
             </Container>
+
+            <Modal
+              finalFocusRef={finalRef}
+              isOpen={isOpen}
+              onClose={onClose}
+              size="lg"
+            >
+              <ModalOverlay />
+              <ModalContent>
+                <AspectRatio ratio={3 / 4.5} overflow="hidden">
+                  <Image
+                    src={data.Poster}
+                    alt={data.Title}
+                    width="100%"
+                    fallbackSrc="/fallback.svg"
+                  />
+                </AspectRatio>
+              </ModalContent>
+            </Modal>
           </>
         )}
     </Layout>

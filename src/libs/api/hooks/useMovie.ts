@@ -7,7 +7,7 @@ import { IMovieParams } from "@libs/api/types";
 const fetchMovie = async (params: IMovieParams) => {
   const { request } = API();
   const { data }: { data: IMovie } = await request.get("", {
-    params: { ...params, plot: "full" },
+    params,
   });
   return data;
 };
