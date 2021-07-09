@@ -14,7 +14,7 @@ import { useSearchResults } from "./result.state";
 import Link from "next/link";
 
 const SerachResults: FC = () => {
-  const { keyword, status, data, handleOnSearch, handleOnChange } =
+  const { keyword, status, data, handleOnClear, handleOnChange } =
     useSearchResults();
 
   return (
@@ -23,7 +23,7 @@ const SerachResults: FC = () => {
         <Navbar
           withSearch
           keyword={keyword}
-          onSearch={handleOnSearch}
+          onClear={handleOnClear}
           onChange={handleOnChange}
         />
       }

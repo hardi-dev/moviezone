@@ -3,14 +3,15 @@ import { Flex, Text, FlexProps } from "@chakra-ui/react";
 
 interface IErrorProps extends FlexProps {
   isError: boolean;
+  inverted?: boolean;
 }
 
-const Error: FC<IErrorProps> = ({ isError, ...restProps }) => {
+const Error: FC<IErrorProps> = ({ isError, inverted, ...restProps }) => {
   if (!isError) return null;
 
   return (
     <Flex justifyContent="center" align="center" height="60vh" {...restProps}>
-      <Text>Opss! Terjadi Kesalahan</Text>
+      <Text color={inverted ? "white" : "black"}>Opss! Terjadi Kesalahan</Text>
     </Flex>
   );
 };

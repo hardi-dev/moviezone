@@ -4,7 +4,8 @@ import { Flex, Container, Box } from "@chakra-ui/react";
 import { useHomeState } from "./Home.state";
 
 const Home: FC = () => {
-  const { data, typing, keyword, handleOnChange } = useHomeState();
+  const { data, typing, keyword, handleOnChange, handleOnClear } =
+    useHomeState();
 
   return (
     <Layout navbar={<Navbar />}>
@@ -19,6 +20,7 @@ const Home: FC = () => {
               borderRadius="8"
               onChange={(val) => handleOnChange(val as string)}
               value={keyword}
+              onClear={handleOnClear}
             />
             {typing && (
               <AutoComplete

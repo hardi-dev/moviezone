@@ -33,9 +33,12 @@ const MovieDetail: FC = () => {
 
   return (
     <Layout bg="black" navbar={<Navbar />}>
-      <Spinner loading={status === "loading"} />
-      <Empty isEmpty={status === "success" && data?.Response === "False"} />
-      <Error isError={status === "error"} />
+      <Spinner loading={status === "loading"} inverted />
+      <Error inverted isError={status === "error"} />
+      <Empty
+        isEmpty={status === "success" && data?.Response === "False"}
+        inverted
+      />
 
       {status === "success" &&
         typeof data !== "undefined" &&

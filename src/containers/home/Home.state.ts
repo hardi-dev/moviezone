@@ -14,10 +14,6 @@ export const useHomeState = () => {
     s: douncedKeyword,
   });
 
-  const handleOnChange = (val: string) => {
-    dispatch({ type: "SET_KEYWORD", payload: val });
-  };
-
   useEffect(() => {
     setIstyping(douncedKeyword.length >= 3);
   }, [douncedKeyword]);
@@ -25,6 +21,15 @@ export const useHomeState = () => {
   useEffect(() => {
     dispatch({ type: "RESET_KEYWORD" });
   }, [dispatch]);
+
+  const handleOnChange = (val: string) => {
+    dispatch({ type: "SET_KEYWORD", payload: val });
+  };
+
+  const handleOnClear = () => {
+    dispatch({ type: "RESET_KEYWORD" });
+    setIstyping(false);
+  };
 
   return {
     data,
@@ -34,5 +39,6 @@ export const useHomeState = () => {
     typing,
     keyword,
     handleOnChange,
+    handleOnClear,
   };
 };

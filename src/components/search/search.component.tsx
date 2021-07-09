@@ -8,7 +8,7 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-import { Search2Icon } from "@chakra-ui/icons";
+import { Search2Icon, CloseIcon } from "@chakra-ui/icons";
 
 type TSearchVariant = "default" | "boxed";
 
@@ -17,14 +17,14 @@ interface ISearchProps extends Omit<BoxProps, "onChange" | "onClick"> {
   variant?: TSearchVariant;
   placeholder?: string;
   onChange?: (val: string) => void;
-  onClick?: (val?: string) => void;
+  onClear?: () => void;
 }
 
 const Search: FC<ISearchProps> = ({
   value,
   placeholder = "Temukan Film Favoritmu",
   onChange,
-  onClick,
+  onClear,
   ...restProps
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -33,8 +33,8 @@ const Search: FC<ISearchProps> = ({
     onChange && onChange(val);
   };
 
-  const handleOnClick = (val?: string) => {
-    onClick && onClick(val);
+  const handlleOnClear = () => {
+    onClear && onClear();
   };
 
   return (
@@ -50,14 +50,16 @@ const Search: FC<ISearchProps> = ({
           value={value}
         />
         <InputRightElement width="2.6rem">
-          <IconButton
-            aria-label="Search Film"
-            onClick={() => handleOnClick(inputRef.current?.value)}
-            borderRadius="4"
-            size="sm"
-          >
-            <Search2Icon color="gray.400" />
-          </IconButton>
+          {typeof value !== "undefined" && value.length > 0 && (
+            <IconButton
+              aria-label="Search Film"
+              onClick={handlleOnClear}
+              borderRadius="4"
+              size="sm"
+            >
+              <CloseIcon color="gray.400" />
+            </IconButton>
+          )}
         </InputRightElement>
       </InputGroup>
     </Box>

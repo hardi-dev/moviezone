@@ -16,10 +16,8 @@ export const useSearchResults = () => {
 
   useInfiniteScroll(!isFetchingNextPage && hasNextPage, fetchNextPage);
 
-  const handleOnSearch = (keyword?: string) => {
-    if (typeof keyword !== "undefined") {
-      dispatch({ type: "SET_KEYWORD", payload: keyword });
-    }
+  const handleOnClear = () => {
+    dispatch({ type: "RESET_KEYWORD" });
   };
 
   const handleOnChange = (keyword?: string) => {
@@ -33,7 +31,7 @@ export const useSearchResults = () => {
     status,
     fetchNextPage,
     hasNextPage,
-    handleOnSearch,
+    handleOnClear,
     keyword,
     handleOnChange,
   };

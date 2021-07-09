@@ -6,18 +6,18 @@ import Link from "next/link";
 interface INavbarProps {
   withSearch?: boolean;
   keyword?: string;
-  onSearch?: (keyword: string) => void;
+  onClear?: () => void;
   onChange?: (keyword: string) => void;
 }
 
 const Navbar: FC<INavbarProps> = ({
   withSearch = false,
   keyword,
-  onSearch,
+  onClear,
   onChange,
 }) => {
-  const handleOnSearch = (val: string) => {
-    onSearch && onSearch(val as string);
+  const handleOnClear = () => {
+    onClear && onClear();
   };
   const handleOnchange = (val: string) => {
     onChange && onChange(val as string);
@@ -45,11 +45,11 @@ const Navbar: FC<INavbarProps> = ({
                 m={{ sm: "0 auto", lg: "0px" }}
                 value={keyword}
                 onChange={(val) => handleOnchange(val as string)}
-                onClick={(val) => handleOnSearch(val as string)}
+                onClear={handleOnClear}
               />
             )}
           </GridItem>
-          <GridItem>Menu</GridItem>
+          <GridItem></GridItem>
         </Grid>
       </Container>
     </Box>
